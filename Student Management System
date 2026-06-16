@@ -1,0 +1,142 @@
+class Student:
+    def __init__(self,student_id,name,age,marks):
+        self.name=name
+        self.student_id=student_id
+        self.age=age
+        self.marks=marks
+
+    def display(self):
+        print(f"Student ID: {self.student_id}")
+        print(f"Student Name: {self.name}")
+        print(f"Student Age: {self.age}")
+        print(f"Student marks: {self.marks}")
+
+
+class StudentManagementSystem:
+
+    def __init__(self):
+        self.students=[]
+
+    #add mutiple students
+    def add_students(self):
+
+        n=int(input('How many student you want to add?:'))
+        for i in range(n):
+            print(f"\nEnter Details of student{i+1}")
+
+            student_id=int(input("Enter Student ID:"))
+            name=input("Enter Student Name:")
+            age=int(input("Enter Student Age:"))
+            marks=int(input("Enter Student marks:"))
+
+            new_student=Student(student_id,name,age,marks)
+
+            self.students.append(new_student)
+
+        print(f"\n{n} Students Added Successfully:")
+
+    #view students
+
+    def view_students(self):
+
+        if  len(self.students)==0:
+            print("No Students Found:")
+
+        else:
+            print("\n-----Student Details-----")  
+
+            for student in self.students:
+                student.display()
+
+    #search student  
+
+    def search_student(self):
+
+        student_id = int(input("Enter Student ID to Search : "))
+
+        for student in self.students:
+
+            if student.student_id == student_id:
+
+                print("\nStudent Found!")
+                student.display()
+                return
+
+        print("Student Not Found!")
+
+    #update marks
+    def update_marks(self):
+                    
+        student_id=int(input("Enter Studemt ID to search:"))
+
+        for student in self.students:
+            if student.student_id==student_id:
+                new_marks=float(input("Enter New Marks:"))
+                student.marks=new_marks
+
+                print("Marks Updated Successfully!")
+                return
+                        
+        print("Student not found!")
+
+    #delete student
+    def delete_student(self):        
+
+        student_id=int(input("Enter Student Id:"))
+
+        for student in self.students:
+            if student.student_id==student_id:
+                self.students.remove(student)
+
+                print("Student Deleted Successfully!")
+                return
+        print("Student Not Found!")
+
+    #Display topper
+    def display_topper(self):
+        if len(self.students)==0:
+            print("No Students Available!")
+
+        else:
+            topper=self.students[0]
+            for student in self.students:
+
+                if student.marks>topper.marks:
+                    topper=student
+                                
+            print("\n----Topper Details----")
+            topper.display()
+
+#Main program
+
+sms=StudentManagementSystem()
+
+while True:
+    print("\n====STUDENT MANAGEMENT SYSTEM====")
+    print("1.Add Students")
+    print("2. View Students")
+    print("3. Search Students")
+    print("4.Update Marks")
+    print("5.Delete Students")
+    print("6. Display Topper")
+    print("7.Exit")
+
+    choice=int(input("Enter your choice : "))
+
+    if choice == 1:
+        sms.add_students()
+    elif choice == 2:
+        sms.view_students()
+    elif choice == 3:
+        sms.search_student()
+    elif choice == 4:
+        sms.update_marks()
+    elif choice == 5:
+        sms.delete_student()
+    elif choice == 6:
+        sms.display_topper()
+    elif choice == 7:
+        print("Thank You:")
+        break
+    else:
+        print("Invalid Choice")    
